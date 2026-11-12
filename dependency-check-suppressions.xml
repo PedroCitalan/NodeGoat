@@ -570,4 +570,94 @@
     <packageUrl>pkg:npm/y18n@3.2.1</packageUrl>
     <vulnerabilityName>GHSA-c4w7-xm78-47vh</vulnerabilityName>
   </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/decode-uri-component@0.2.0</packageUrl>
+    <vulnerabilityName>GHSA-qr28-fpjm-wq7f</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/diff@1.4.0</packageUrl>
+    <vulnerabilityName>GHSA-h6ch-v84p-w6p9</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/form-data@2.0.0</packageUrl>
+    <vulnerabilityName>GHSA-fjxv-7rqg-78g4</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/fsevents@1.2.9</packageUrl>
+    <vulnerabilityName>GHSA-xv2f-5jw4-v95m</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/handlebars@4.0.5</packageUrl>
+    <vulnerabilityName>GHSA-g9r4-xpmj-mj65</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/handlebars@4.0.5</packageUrl>
+    <vulnerabilityName>GHSA-p8wg-vrv2-v86f</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/handlebars@4.0.5</packageUrl>
+    <vulnerabilityName>GHSA-q2c6-c6pm-g3gh</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/js-yaml@3.5.5</packageUrl>
+    <vulnerabilityName>GHSA-8j8c-7jfh-h6hx</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/lodash@2.4.2</packageUrl>
+    <vulnerabilityName>GHSA-4xc9-xhrj-v574</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/minimatch@0.3.0</packageUrl>
+    <vulnerabilityName>GHSA-3ppc-4f35-3m26</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/mongodb@2.2.36</packageUrl>
+    <vulnerabilityName>GHSA-mh5c-679w-hh4r</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/qs@0.6.6</packageUrl>
+    <vulnerabilityName>GHSA-f9cm-p3w6-xvr3</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/qs@0.6.6</packageUrl>
+    <vulnerabilityName>GHSA-jjv7-qpx3-h62q</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/tar@4.4.8</packageUrl>
+    <vulnerabilityName>GHSA-8qq5-rm4j-mr97</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/tar@4.4.8</packageUrl>
+    <vulnerabilityName>GHSA-9ppj-qmqm-q256</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/tar@4.4.8</packageUrl>
+    <vulnerabilityName>GHSA-qffp-2rhf-9h96</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/tmp@0.0.24</packageUrl>
+    <vulnerabilityName>GHSA-ph9p-34f9-6g65</vulnerabilityName>
+  </suppress>
+  <suppress until="2026-12-12Z">
+    <notes>Temporary educational-lab exception for a baseline NodeGoat finding reported in GitHub Actions run 43253417268. This does not remediate the dependency; remove it when upgraded. Expires 2026-12-12.</notes>
+    <packageUrl>pkg:npm/websocket-driver@0.7.0</packageUrl>
+    <vulnerabilityName>GHSA-xv26-6w52-cph6</vulnerabilityName>
+  </suppress>
 </suppressions>
