@@ -1,0 +1,103 @@
+name: DevSecOps Pipeline
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sast-semgrep:
+    name: SAST - Semgrep Code Scanning
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Ejecutar Semgrep (JSON y SARIF)
+        id: semgrep
+        run: |
+          semgrep scan --config p/security-audit --json --output semgrep-results.json .
+          semgrep scan --config p/security-audit --sarif --output semgrep-results.sarif .
+
+      - name: Aplicar quality gate SAST (ERROR/HIGH)
+        if: always() && steps.semgrep.outcome == 'success'
+        run: |
+          python3 - <<'PY'
+          import json
+          import sys
+
+          with open("semgrep-results.json", encoding="utf-8") as report:
+              findings = json.load(report).get("results", [])
+
+          blocking = []
+          for finding in findings:
+              extra = finding.get("extra", {})
+              severity = str(extra.get("severity", "")).upper()
+              impact = str(extra.get("metadata", {}).get("impact", "")).upper()
+              if severity == "ERROR" or impact in {"HIGH", "CRITICAL"}:
+                  blocking.append(finding)
+
+          print(f"Semgrep findings: {len(findings)}; bloqueantes: {len(blocking)}")
+          for finding in blocking:
+              print(f"{finding.get('path')}:{finding.get('start', {}).get('line')} - "
+                    f"{finding.get('check_id')} ({finding.get('extra', {}).get('severity')})")
+          sys.exit(1 if blocking else 0)
+          PY
+
+      - name: Subir reportes Semgrep
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-reports
+          path: |
+            semgrep-results.sarif
+            semgrep-results.json
+          if-no-files-found: warn
+
+  sca-and-sbom:
+    name: SCA & Generación de SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Generar SBOM con Syft (CycloneDX JSON)
+        uses: anchore/sbom-action@v0
+        with:
+          path: .
+          format: cyclonedx-json
+          output-file: sbom.cyclonedx.json
+          upload-artifact: false
+
+      - name: Subir artefacto SBOM (CycloneDX)
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-cyclonedx
+          path: sbom.cyclonedx.json
+
+      - name: OWASP Dependency-Check Scan (CVSS >= 7 falla)
+        id: dependency-check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: NodeGoat
+          path: .
+          format: HTML
+          out: reports
+          args: >
+            --failOnCVSS 7
+            --enableExperimental
+
+      - name: Subir Reporte SCA
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-report
+          path: reports/
+          if-no-files-found: warn
