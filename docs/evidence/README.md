@@ -1,8 +1,6 @@
 # Evidencia de ejecución
 
-Guarda aquí capturas tomadas de GitHub Actions después de ejecutar el workflow:
+- `pipeline-failed.png`: captura del run real [DevSecOps Pipeline #1](https://github.com/PedroCitalan/NodeGoat/actions/runs/43251449994). Semgrep pasó; SCA falló por CVSS ≥ 7.
+- `pipeline-success.png`: pendiente de que termine satisfactoriamente la corrida tras aplicar la supresión temporal documentada.
 
-- `pipeline-failed.png`: corrida que falla por el quality gate.
-- `pipeline-success.png`: corrida posterior a una corrección o mitigación.
-
-No hay capturas todavía porque este entorno local no tiene acceso a una corrida de GitHub Actions. No se deben usar capturas simuladas como evidencia.
+El enlace a GitHub conserva el resultado verificable mientras se guardan las capturas PNG en esta carpeta.
