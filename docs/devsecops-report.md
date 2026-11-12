@@ -26,7 +26,7 @@ Syft 1.55.0 generó [`sbom.cyclonedx.json`](../sbom.cyclonedx.json), un document
 
 ### SCA — OWASP Dependency-Check
 
-El reporte de GitHub Actions está en [`reports/dependency-check-report.html`](../reports/dependency-check-report.html). La corrida [DevSecOps Pipeline #1](https://github.com/PedroCitalan/NodeGoat/actions/runs/43251449994) terminó `FAILED`: SAST pasó y SCA falló por vulnerabilidades sobre el umbral. Dependency-Check 13.0.0 analizó **147 dependencias**; reportó **99 dependencias vulnerables** y **219 vulnerabilidades**. La severidad máxima por dependencia se distribuye así:
+El reporte final de GitHub Actions está en [`reports/dependency-check-report.html`](../reports/dependency-check-report.html). La corrida inicial [DevSecOps Pipeline #1](https://github.com/PedroCitalan/NodeGoat/actions/runs/43251449994) terminó `FAILED`: SAST pasó y SCA falló por vulnerabilidades sobre el umbral. Dependency-Check 13.0.0 analizó **147 dependencias**; el reporte inicial registró **99 dependencias vulnerables** y **219 vulnerabilidades**. La severidad máxima por dependencia se distribuyó así:
 
 - HIGH: 49 dependencias.
 - CRITICAL: 16 dependencias.
@@ -36,7 +36,9 @@ El reporte de GitHub Actions está en [`reports/dependency-check-report.html`](.
 
 El umbral CVSS ≥ 7.0 queda excedido por los hallazgos HIGH/CRITICAL, así que el quality gate SCA **falló** con `--failOnCVSS 7`. El artefacto de la corrida no muestra excepciones de análisis.
 
-Para el segundo estado del laboratorio, se agregó [`dependency-check-suppressions.xml`](../dependency-check-suppressions.xml): contiene 132 excepciones exactas (PURL + GHSA), con vencimiento el **12 de diciembre de 2026**. Las primeras 114 correspondían a hallazgos con CVSS ≥ 7 del reporte inicial; se añadieron 18 advisories nuevos que bloquearon la corrida de verificación [#2](https://github.com/PedroCitalan/NodeGoat/actions/runs/43253417268). Cada regla documenta que es una excepción educativa temporal, no una remediación. El workflow mantiene `--failOnCVSS 7`; se debe confirmar la siguiente corrida antes de registrar `SUCCESS`.
+Para el segundo estado del laboratorio, se agregó [`dependency-check-suppressions.xml`](../dependency-check-suppressions.xml): contiene 132 excepciones exactas (PURL + GHSA), con vencimiento el **12 de diciembre de 2026**. Las primeras 114 correspondían a hallazgos del reporte inicial; se añadieron 18 advisories que bloquearon la verificación [#2](https://github.com/PedroCitalan/NodeGoat/actions/runs/43253417268). Cada regla documenta que es una excepción educativa temporal, no una remediación. El workflow conserva `--failOnCVSS 7`.
+
+La corrida [DevSecOps Pipeline #3](https://github.com/PedroCitalan/NodeGoat/actions/runs/43254271160) terminó `SUCCESS` con ambos jobs aprobados. El reporte SCA final cuenta **87 vulnerabilidades**, de las cuales **132 se suprimieron** bajo las excepciones temporales; permanecen **57 dependencias vulnerables** en el reporte. El estado exitoso demuestra la excepción de baseline, no que esas dependencias hayan sido corregidas. Retire o reduzca las supresiones al actualizar paquetes y antes de su fecha de vencimiento.
 
 La corrida de GitHub Actions publicó estos artefactos:
 
@@ -44,7 +46,7 @@ La corrida de GitHub Actions publicó estos artefactos:
 - `sbom-cyclonedx`: `sbom.cyclonedx.json`.
 - `dependency-check-report`: reporte HTML en `reports/`.
 
-Semgrep pasa el umbral SAST; Dependency-Check activa el gate por los hallazgos HIGH/CRITICAL. La primera corrida real está en estado `FAILED`. Falta mitigar los hallazgos bloqueantes y ejecutar otra corrida para documentar un `SUCCESS`.
+Semgrep pasó en las tres corridas. Dependency-Check falló en la corrida #1 por CVSS ≥ 7, la corrida #2 aún encontró 18 advisories bloqueantes, y la corrida #3 pasó tras aplicar las suppressions exactas y temporales.
 
 ## Quality gate
 
@@ -116,7 +118,7 @@ La carpeta [`evidence/`](evidence/) está reservada para capturas reales de:
 2. Una corrida `SUCCESS` tras corregir o mitigar el hallazgo.
 3. El resumen o artefactos de la corrida, si se requiere evidencia adicional.
 
-La corrida inicial `#1` está enlazada arriba; SAST pasó y SCA falló por el gate. La corrida de verificación `#2` también falló por advisories nuevos después de aplicar 114 reglas. Se amplió la supresión de forma exacta y temporal; queda confirmar la siguiente corrida. Las capturas PNG de ambos estados siguen pendientes de guardarse en esta carpeta. Los archivos `semgrep-results.json`, `semgrep-results.sarif`, `sbom.cyclonedx.json` y `reports/dependency-check-report.html` respaldan los análisis.
+La corrida `#1` es la evidencia `FAILED`; la corrida `#3` es la evidencia `SUCCESS`. Ambas páginas de GitHub Actions se capturaron en esta interacción y sus enlaces permanentes están arriba. Los archivos `semgrep-results.json`, `semgrep-results.sarif`, `sbom.cyclonedx.json` y `reports/dependency-check-report.html` respaldan los análisis. Las imágenes PNG todavía deben guardarse en esta carpeta si se necesitan como archivos independientes.
 
 ## Nota de implementación
 
@@ -124,9 +126,9 @@ El ejemplo recibido usa `semgrep/semgrep-action@v1`; ese repositorio oficial est
 
 ## Entregables y estado
 
-- Pipeline: `.github/workflows/devsecops-pipeline.yml` — publicado en `master`; la corrida inicial `43251449994` falló por el quality gate SCA.
-- Supresión temporal: `dependency-check-suppressions.xml` — 132 reglas acotadas por PURL y GHSA, vencen el 12 de diciembre de 2026; pendiente confirmar su efecto en CI.
+- Pipeline: `.github/workflows/devsecops-pipeline.yml` — publicado en `master`; runs `43251449994` (`FAILED`) y `43254271160` (`SUCCESS`).
+- Supresión temporal: `dependency-check-suppressions.xml` — 132 reglas acotadas por PURL y GHSA, vencen el 12 de diciembre de 2026; aplicadas en la corrida exitosa.
 - SBOM: `sbom.cyclonedx.json` — generado localmente con Syft 1.55.0.
 - SCA: `reports/dependency-check-report.html` — generado por Dependency-Check 13.0.0; 99 dependencias vulnerables, incluidas 49 HIGH y 16 CRITICAL; el gate CVSS ≥ 7 debe fallar.
 - Informe: este archivo Markdown.
-- Capturas: corrida fallida disponible en [GitHub Actions](https://github.com/PedroCitalan/NodeGoat/actions/runs/43251449994); falta guardar la imagen en `docs/evidence/` y obtener/capturar el estado exitoso.
+- Capturas: [FAILED](https://github.com/PedroCitalan/NodeGoat/actions/runs/43251449994) y [SUCCESS](https://github.com/PedroCitalan/NodeGoat/actions/runs/43254271160); las vistas de ambos estados se capturaron en esta conversación.
